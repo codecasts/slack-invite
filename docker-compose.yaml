@@ -1,0 +1,41 @@
+# v2 sintax
+version: '2'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  invite-mysql-data:
+    driver: local
+  # Redis Data
+  invite-redis-data:
+    driver: local
+
+services:
+
+  # Redis
+  cache:
+    image: ambientum/redis:3.2
+    container_name: invite-redis
+    ports:
+      - "6379:6379"
+
+  # PHP (with Caddy)
+  app:
+    image: ambientum/php:7.0-caddy
+    container_name: invite-php
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.0
+    container_name: invite-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - cache

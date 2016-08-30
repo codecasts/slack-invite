@@ -1,0 +1,27 @@
+#message, #status, #logo, #validation-message{
+    text-align:center
+}
+
+.container{
+    margin-top: 10%;
+}
+
+#validation-message{
+    margin: 20px;
+}
+
+#logo{
+    margin:10px;
+}
+
+#logo img{
+    width:48px;
+    height: 48px;
+}
+
+#footer{
+    text-align: center;
+    width: 100%;
+    opacity: 0.65;
+    margin-top: 15%;
+}
